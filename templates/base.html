@@ -56,15 +56,15 @@
                 </form>
 
                 {% if user.is_authenticated %}
-                <ul class="nav nav-pills mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle mr-auto text-light" data-bs-toggle="dropdown" href="#"
-                            role="button" aria-expanded="false">Welcome {{request.user}}</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <strong class="font-monospace text-capitalize">Welcome {{request.user}}</strong>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </div>
 
                 {% else %}
                 <!-- Button to trigger Login modal -->
