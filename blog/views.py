@@ -2,13 +2,37 @@ from blog.models import Post, BlogComment
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from blog.templatetags import extras
+import math
 
 # Create your views here.
 
 
 def blogHome(request):
+    '''
+        Pagination Design and logic.  < -- can ask me
+        check my Logic book TimeStamp : 1557-070721 < -- I will check here
+    '''
+
+    no_of_posts = 2
+    page = request.GET.get('page')
+    if page is None:
+        page = 1
+    else:
+        page = int(page)
+
     allPosts = Post.objects.all()
-    context = {'allPosts': allPosts}
+    length = len(allPosts)
+    allPosts = allPosts[(page-1)*no_of_posts: page*no_of_posts]
+    if page > 1:
+        prev = page - 1
+    else:
+        prev = None
+    if page < math.ceil(length/no_of_posts):
+        nxt = page + 1
+    else:
+        nxt = None
+    
+    context = {'allPosts': allPosts, 'prev': prev, 'nxt': nxt}
     return render(request, 'blog/blogHome.html', context)
 
 
